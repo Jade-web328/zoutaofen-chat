@@ -13,21 +13,25 @@
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background-color: #F4F0E6; 
             color: #333;
-            height: 100vh;
+            /* 允许页面滚动以适配小屏幕 */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto; 
             position: relative;
         }
 
         .main-container {
             display: flex;
             flex: 1;
-            height: calc(100vh - 45px); 
+            /* 增加上下 padding，防止内容在小屏幕下贴边 */
+            min-height: calc(100vh - 45px); 
             justify-content: center;
             align-items: center;
             position: relative;
             z-index: 10;
+            padding: 40px 20px;
         }
 
         .center-panel {
@@ -37,26 +41,27 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            transform: translateY(-20px);
-            width: 100%; /* 确保有足够宽度 */
+            /* 移除向上偏移，让内容自然居中 */
+            width: 100%; 
         }
 
         .portrait-container {
-            width: 280px;
-            height: 280px;
+            /* 稍微缩小图片，防止小屏幕下占用过多垂直空间 */
+            width: 220px;
+            height: 220px;
             /* 图片地址保留，并配合顶部的 no-referrer 尝试显示 */
             background: url('./portrait.png') no-repeat center center/cover;
             background-color: #e5e0d8;
             border-radius: 50%;
-            margin-bottom: 35px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            margin-bottom: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
             filter: contrast(1.05); 
             border: 6px solid #F4F0E6;
         }
 
         .bio-name {
             font-family: 'Noto Serif SC', 'Songti SC', serif;
-            font-size: 52px;
+            font-size: 46px; /* 适度缩小标题适配屏幕 */
             color: #1E2A38; 
             margin-bottom: 12px;
             letter-spacing: 8px;
@@ -89,8 +94,8 @@
             font-size: 18px;
             line-height: 2.2;
             color: #333;
-            max-width: 500px; 
-            text-align: left;
+            max-width: 680px; /* 稍微放宽一点让长文本自然换行排版更美观 */
+            text-align: left; /* 保留你修改的左对齐 */
         }
 
         .bio-quote {
@@ -104,9 +109,14 @@
             text-align: center;
         }
 
+        /* 允许文本自然换行，避免小屏幕下左右溢出 */
+        .bio-line {
+            display: block;
+        }
+
         /* 新增：深色行动号召色块 (CTA) */
         .action-box {
-            margin-top: 45px;
+            margin-top: 35px;
             background-color: #1E2A38; /* 深色钢笔蓝 */
             color: #F4F0E6; /* 浅色纸白文字 */
             padding: 14px 32px;
@@ -137,13 +147,15 @@
             position: relative;
             z-index: 20;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+            /* 防止跑马灯在 flex 布局中被压缩 */
+            flex-shrink: 0; 
         }
 
         .marquee-content {
             display: inline-block;
             white-space: nowrap;
             padding-left: 100%; 
-            animation: marquee 180s linear infinite;
+            animation: marquee 180s linear infinite; /* 保留你的 180s */
             font-size: 15px;
             font-family: 'Noto Serif SC', 'Songti SC', serif;
             letter-spacing: 1.5px;
