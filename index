@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 增加防盗链破解标签，尝试让浏览器忽略 Referer -->
+    <meta name="referrer" content="no-referrer">
+    <title>邹韬奋 - 专属智能知识库</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #F4F0E6; 
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 45px); 
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .center-panel {
+            background-color: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: translateY(-20px);
+            width: 100%; /* 确保有足够宽度 */
+        }
+
+        .portrait-container {
+            width: 280px;
+            height: 280px;
+            /* 图片地址保留，并配合顶部的 no-referrer 尝试显示 */
+            background: url('./portrait.png') no-repeat center center/cover;
+            background-color: #e5e0d8;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            filter: contrast(1.05); 
+            border: 6px solid #F4F0E6;
+        }
+
+        .bio-name {
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+            font-size: 52px;
+            color: #1E2A38; 
+            margin-bottom: 12px;
+            letter-spacing: 8px;
+            font-weight: 700;
+        }
+
+        .bio-title {
+            font-size: 15px;
+            color: #666;
+            letter-spacing: 4px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .bio-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #1E2A38;
+        }
+
+        /* 优化后的文案描述：放宽容器，防止换行 */
+        .bio-desc {
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+            font-size: 18px;
+            line-height: 2.2;
+            color: #333;
+            max-width: 500px; 
+            text-align: left;
+        }
+
+        .bio-quote {
+            font-style: italic;
+            color: #1E2A38;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: block;
+            white-space: nowrap; /* 同样禁止换行 */
+            text-align: center;
+        }
+
+        /* 新增：深色行动号召色块 (CTA) */
+        .action-box {
+            margin-top: 45px;
+            background-color: #1E2A38; /* 深色钢笔蓝 */
+            color: #F4F0E6; /* 浅色纸白文字 */
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 25px rgba(30, 42, 56, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* 增加微微呼吸的动效，吸引注意力 */
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); box-shadow: 0 10px 25px rgba(30, 42, 56, 0.3); }
+            50% { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(30, 42, 56, 0.4); }
+        }
+
+        /* 跑马灯 */
+        .marquee-container {
+            height: 45px;
+            background-color: #1C2331; 
+            color: #E5D3B3; 
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            z-index: 20;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%; 
+            animation: marquee 180s linear infinite;
+            font-size: 15px;
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+            letter-spacing: 1.5px;
+        }
+
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+            cursor: default;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="center-panel">
+            <div class="portrait-container" id="portrait"></div>
+            <h1 class="bio-name">邹韬奋</h1>
+            <div class="bio-title">杰出新闻记者 · 出版家 (1895-1944)</div>
+            <div class="bio-desc">
+                <span class="bio-quote">“热爱人民，真诚地为人民服务。”</span>
+                <span class="bio-line">邹韬奋是中国近代杰出的新闻出版家、爱国民主战士。他主编《生活》《全民抗战》等进步刊物，创办生活书店，积极投身抗日救亡运动，是 “救国会七君子” 之一。一生以笔为刃，心系民众与家国，为民族觉醒和进步文化事业奉献终生。</span>
+            </div>
+            
+            <!-- 新增：深色块提醒 -->
+            <div class="action-box">
+                点击右下角，与韬奋学长开启跨越时空的对话
+            </div>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            自尊心是进步之母，自贱心是堕落之源，故自尊心不可无，自贱心不可有。 ❖ 
+            自觉心是进步之母，自卑心是堕落之源，故自觉心不可无，自卑心不可有。 ❖ 
+            一个人光溜溜地到这个世界来，最后光溜溜地离开这个世界而去，彻底想起来，名利都是身外物。 ❖ 
+            我以为挫折磨难是锻炼意志、增强能力的好机会。 ❖ 
+            真正的乐观主义的人是用积极的精神向前奋斗的人，是战胜愁虑穷苦的人。 ❖ 
+            不干，固然遇不着失败，也绝对遇不着成功。 ❖ 
+            一个人做事，在动手之前，当然要详慎考虑；但是计划或方针已定之后，就要认定目标前进，不可再有迟疑不决的态度，这就是坚毅的态度。 ❖ 
+            理论彻底，策略准确。然后以排除万难坚定不移的勇气和精神向前干去，必有成功的一日。 ❖ 
+            “难”也是如此，面对悬崖峭壁，一百年也看不出一条缝来，但用斧凿，能进一寸进一寸，得进一尺进一尺，不断积累，飞跃必来，突破随之。 ❖ 
+            有志于某种事业者，与其临渊羡鱼，毋宁退而结网，结网无他，即当对于此某事业所需要之能力先加以充分的准备。 ❖ 
+            工作愈伟大，所受的反抗也愈厉害，简直成为一种律令，对付这种厉害的反抗，最重要的工具是乐观主义。 ❖ 
+            无所不能的人实在一无所能，无所不专的专家实在是一无所专。 ❖ 
+            一个人在学校里表面上的成绩，以及较高的名次，都是靠不住的，唯一的要点是你对于你所学的是否心里真正觉得很喜欢，是否真有浓厚的兴趣。 ❖ 
+            加紧学习，抓住中心，宁精勿杂，宁专勿多。 ❖ 
+            友谊是天地间最可宝贵的东西，深挚的友谊是人生最大的一种安慰。 ❖ 
+            最主要的是所选朋友必须正派，即品行端正的人。 ❖ 
+            我们要能多得到深挚的友谊，也许还要多多注意自己怎样做人，不辜负好友们的知人之明。 ❖ 
+            金钱往往成为真正情义的障碍物。 ❖ 
+            以读者的利益为中心，以社会的改进为鹄的。 ❖ 
+            做编辑最快乐的一件事就是看读者的来信，尽自己的心力，替读者解决或商讨种种问题，把读者的事看成自己的事，与读者的悲欢离合、甜酸苦辣打成一片。
+        </div>
+    </div>
+
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/cn/index.js"></script>
+    <script>
+        new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id: '7573278808959303732',
+            },
+            componentProps: {
+                title: '邹韬奋学长',
+            },
+        });
+    </script>
+</body>
+</html>
